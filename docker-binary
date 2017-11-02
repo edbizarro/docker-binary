@@ -1,0 +1,35 @@
+        #!/bin/bash
+
+CONFIG_NAME=.dockerbinary
+DATA_MOUNT=${DOCKERBINARY_DATAMOUNT:-"/app"}
+SSH_MOUNT=${DOCKERBINARY_SSHMOUNT:-"/root/.ssh"}
+
+DOCKER_PARAMS=${DOCKERBINARY_PARAMS:-"-it --rm"}
+
+function get_binary_image {
+    if grep -q $1 $2; then
+        DOCKER_IMAGE=$(grep $1 $2 | cut -d= -f2)
+        CONFIG_COMMAND=$(grep $1 $2 | cut -d= -f3)
+        DOCKER_COMMAND=${CONFIG_COMMAND:-$1}
+    else
+        echo 'docker binary: binary missing in config.'
+        exit 1
+    fi
+}
+
+if [ -f $(pwd -P)/$CONFIG_NAME ]; then
+    echo 'docker binary: using project config.'
+    CONFIG_PATH=$(pwd -P)/${CONFIG_NAME}
+elif [ -f ${HOME}/${CONFIG_NAME} ]; then
+    echo 'docker binary: using user config.'
+    CONFIG_PATH=${HOME}/${CONFIG_NAME}
+else
+    echo 'docker binary: missing config.'
+    exit 1
+fi
+
+
+get_binary_image $1 $CONFIG_PATH
+
+DOCKER_RUN="docker run ${DOCKER_PARAMS} -v ${HOME}/.ssh:${SSH_MOUNT} -v $(pwd -P):${DATA_MOUNT} ${DOCKER_IMAGE} ${DOCKER_COMMAND} ${2}"
+($DOCKER_RUN)

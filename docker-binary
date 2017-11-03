@@ -1,4 +1,4 @@
-        #!/bin/bash
+#!/bin/bash
 
 CONFIG_NAME=.dockerbinary
 DATA_MOUNT=${DOCKERBINARY_DATAMOUNT:-"/app"}
@@ -27,7 +27,6 @@ else
     echo 'docker binary: missing config.'
     exit 1
 fi
-
 
 get_binary_image $1 $CONFIG_PATH
 

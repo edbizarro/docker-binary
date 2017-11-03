@@ -21,12 +21,12 @@ $ curl https://gitlab.com/geekpobre/docker-binary/raw/master/install.sh | sudo b
 #### Usage
 
 ```bash
-$ docker-binary [key] [command]
+$ dab [key] [command]
 ```
 
 ```bash
 ------ [terminal]
-$ docker-binary php -v
+$ dab php -v
 
 Docker Binary: using project config.
 PHP 7.1.11 (cli) (built: Oct 30 2017 22:02:40) ( NTS )
@@ -38,7 +38,7 @@ php=php:7.1-cli
 
 ```
 
- `docker-binary` will search the `[key]` inside a `.dockerbinary` file on your current directory with a fallback to one on your `$HOME`. For now there is no merge between the two files so if it find one on your project folder only those keys will be available.
+ `dab` will search the `[key]` inside a `.dockerbinary` file on your current directory with a fallback to one on your `$HOME`. For now there is no merge between the two files so if it find one on your project folder only those keys will be available.
 
 
 
@@ -54,13 +54,13 @@ npm=node:latest=yarn
 
 The `.dockerbinary` file should follow the format above with one key per line. For now there is no support for comments.
 
-If you only pass the first two parameters `docker-binary` will assume the key is the same as the binary you want to call inside the container. If those should be different for some reason you can then use a third parameter to set what is the binary being called.
+If you only pass the first two parameters `dab` will assume the key is the same as the binary you want to call inside the container. If those should be different for some reason you can then use a third parameter to set what is the binary being called.
 
 
 
 #### Extra Parameters
 
-Behind the scenes `docker-binary` is calling the `docker run` command. You can customize some of those values exporting some variables on your shell.
+Behind the scenes `dab` is calling the `docker run` command. You can customize some of those values exporting some variables on your shell.
 
 `DOCKERBINARY_DATAMOUNT` | `/app`  - Define where the current folder will be mounted inside the container.
 

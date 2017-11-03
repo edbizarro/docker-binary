@@ -12,7 +12,9 @@ With the capability to use a configuration file per project or per user it can a
 
 #### Installation
 
-* TODO
+```bash
+$ curl https://gitlab.com/geekpobre/docker-binary/raw/master/install.sh | sudo bash
+```
 
 
 

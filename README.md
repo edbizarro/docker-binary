@@ -20,36 +20,51 @@ $ curl https://gitlab.com/geekpobre/docker-binary/raw/master/install.sh | sudo b
 
 #### Usage
 
+
 ```bash
 $ dab [key] [command]
 ```
+Ex:
+
+In your `.dockerbinary`
+
+```
+[.dockerbinary]
+php=php:7.1-cli
+```
+
+Run
 
 ```bash
------- [terminal]
 $ dab php -v
 
 Docker Binary: using project config.
 PHP 7.1.11 (cli) (built: Oct 30 2017 22:02:40) ( NTS )
 Copyright (c) 1997-2017 The PHP Group
 Zend Engine v3.1.0, Copyright (c) 1998-2017 Zend Technologies
-
------- [.dockerbinary]
-php=php:7.1-cli
-
 ```
 
- `dab` will search the `[key]` inside a `.dockerbinary` file on your current directory with a fallback to one on your `$HOME`. For now there is no merge between the two files so if it find one on your project folder only those keys will be available.
+ `dab` will search the `[key]` inside a `.dockerbinary` file on your current directory, and will merge with one on your `$HOME` if present.
 
 
+
+#### Examples
 
 ```
 key=image[=command]
 ```
 
+Simple
+
 ```
 node=node:latest
-yarn=node:latest
-npm=node:latest=yarn
+```
+
+With command
+
+```
+yarn=node:latest=yarn
+npm=node:latest=npm
 ```
 
 The `.dockerbinary` file should follow the format above with one key per line. For now there is no support for comments.
@@ -67,4 +82,3 @@ Behind the scenes `dab` is calling the `docker run` command. You can customize s
 `DOCKERBINARY_SSHMOUNT` | `/root/.ssh` - Define where your ssh folder will be mounted inside the container.
 
 `DOCKERBINARY_PARAMS` | `-it --rm`  - Define which parameters are used on the `docker run` command.
-

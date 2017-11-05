@@ -35,5 +35,5 @@ fi
 
 get_binary_image $1 $CONFIG_PATH
 
-DOCKER_RUN="docker run ${DOCKER_PARAMS} -v ${HOME}/.ssh:${SSH_MOUNT} -v $(pwd -P):${DATA_MOUNT} ${DOCKER_IMAGE} ${DOCKER_COMMAND} '${2}'"
+DOCKER_RUN="docker run ${DOCKER_PARAMS} -v ${HOME}/.ssh:${SSH_MOUNT} -v $(pwd -P):${DATA_MOUNT} ${DOCKER_IMAGE} ${DOCKER_COMMAND} ${2}"
 ($DOCKER_RUN)
